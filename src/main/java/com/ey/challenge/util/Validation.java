@@ -13,7 +13,7 @@ public class Validation {
     }
 
     public static boolean validatePassword(String password) {
-        String passworPattern = "^(?=.*[A-Z])(?=.*[a-z])(?=.*\\d.*\\d)[A-Za-z\\d@$!%*?&]{8,}$";
+        String passworPattern = "^(?=.*[A-Z])(?=.*[a-z])(?=.*\\d.*\\d)[A-Za-z\\d@$!%*?&]{4,}$";
         Pattern pattern = Pattern.compile(passworPattern);
         Matcher matcher = pattern.matcher(password);
         return matcher.matches();
