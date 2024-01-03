@@ -2,6 +2,7 @@ package com.ey.challenge.controller;
 
 import com.ey.challenge.dto.UserDTO;
 import com.ey.challenge.entity.User;
+import com.ey.challenge.exception.EmailExistsException;
 import com.ey.challenge.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -21,9 +22,8 @@ public class UserController {
     }
 
     @PostMapping
-    public ResponseEntity<User> createUser(@RequestBody UserDTO userDTO) {
+    public ResponseEntity<?> createUser(@RequestBody UserDTO userDTO) {
         User createdUser = userService.createUser(userDTO);
-        return ResponseEntity.ok().body(createdUser);
-        //return new ResponseEntity<User>(createdUser, HttpStatus.CREATED);
+        return new ResponseEntity<>(createdUser, HttpStatus.CREATED);
     }
 }
