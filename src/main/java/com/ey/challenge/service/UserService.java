@@ -1,6 +1,7 @@
 package com.ey.challenge.service;
 
 import com.ey.challenge.dto.UserDTO;
+import com.ey.challenge.dto.UserResDTO;
 import com.ey.challenge.entity.Phone;
 import com.ey.challenge.entity.User;
 import com.ey.challenge.exception.EmailExistsException;
@@ -24,7 +25,7 @@ public class UserService {
     @Autowired
     private PhoneRepository phoneRepository;
 
-    public User createUser(UserDTO userDTO) {
+    public UserResDTO createUser(UserDTO userDTO) {
         this.userValidation(userDTO);
 
         User user = new User();
@@ -46,7 +47,29 @@ public class UserService {
 
         user.setPhones(phones);
 
-        return userRepository.save(user);
+        User createdUser = userRepository.save(user);
+        return this.userToUserResDTO(createdUser);
+    }
+
+    public List<UserResDTO> getAllUsers() {
+        List<User> users = userRepository.findAll();
+        List<UserResDTO> usersResDTO = users.stream().map( user -> this.userToUserResDTO(user)).toList();
+        return usersResDTO;
+    }
+
+    private UserResDTO userToUserResDTO(User user) {
+        UserResDTO userResDTO = new UserResDTO(
+                user.getId(),
+                user.getName(),
+                user.getEmail(),
+                user.getPhones(),
+                user.getCreated(),
+                user.getModified(),
+                user.getLastLogin(),
+                user.getToken(),
+                user.getIsActive()
+        );
+        return userResDTO;
     }
 
     private void userValidation(UserDTO userDTO) {

@@ -26,6 +26,14 @@ public class User {
     @Column(name="password")
     private String password;
 
+    @Column(name="token")
+    private String token;
+
+    @CreationTimestamp
+    @Column(name="last_login")
+    private Date lastLogin;
+
+
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Phone> phones = new ArrayList<>();
 
@@ -88,5 +96,21 @@ public class User {
 
     public void setIsActive(Boolean isActive) {
         this.isActive = isActive;
+    }
+
+    public Date getLastLogin() {
+        return lastLogin;
+    }
+
+    public void setLastLogin(Date lastLogin) {
+        this.lastLogin = lastLogin;
+    }
+
+    public String getToken() {
+        return token;
+    }
+
+    public void setToken(String token) {
+        this.token = token;
     }
 }
