@@ -1,4 +1,4 @@
-# Challene Java - EY
+# Challenge Java - EY
 
 ## Generación de BD
 La aplicación está construida de tal forma que se genere la BD H2 al vuelo al momento de ejecutar.
