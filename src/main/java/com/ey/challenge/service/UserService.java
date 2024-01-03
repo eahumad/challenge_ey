@@ -14,6 +14,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 @Service
@@ -32,6 +33,7 @@ public class UserService {
         user.setName(userDTO.getName());
         user.setEmail(userDTO.getEmail());
         user.setPassword(userDTO.getPassword());
+        user.setToken(UUID.randomUUID().toString() );
 
 
         List<Phone> phones = userDTO.getPhones().stream()
@@ -48,6 +50,7 @@ public class UserService {
         user.setPhones(phones);
 
         User createdUser = userRepository.save(user);
+
         return this.userToUserResDTO(createdUser);
     }
 
